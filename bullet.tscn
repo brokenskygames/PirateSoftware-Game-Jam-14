@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6y21uqcq2urk"]
+
+[ext_resource type="Script" path="res://bullet.gd" id="1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k23hs"]
+radius = 5.0
+
+[node name="Bullet" type="CharacterBody2D"]
+scale = Vector2(0.2, 0.2)
+collision_layer = 4
+script = ExtResource("1")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-3, -3, 0, -5, 3, -3, 5, 0, 3, 3, 0, 5, -3, 3, -5, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+light_mask = 2
+visibility_layer = 2
+shape = SubResource("CircleShape2D_k23hs")
+
+[node name="VisibilityNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-5.96046e-08, 2.98023e-07)
+scale = Vector2(1.66667, 1.66667)
+rect = Rect2(-3, -3, 6, 6)
+
+[node name="life" type="Timer" parent="."]
+wait_time = 4.0
+autostart = true
+
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
+[connection signal="timeout" from="life" to="." method="_on_life_timeout"]
