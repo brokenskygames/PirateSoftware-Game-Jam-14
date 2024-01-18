@@ -1,61 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://dk8wntsdxc2df"]
+[gd_scene load_steps=4 format=3 uid="uid://dk8wntsdxc2df"]
 
-[ext_resource type="Script" path="res://Player.gd" id="1_otayf"]
-[ext_resource type="Texture2D" uid="uid://bcj1bgmsj8uas" path="res://_Udemy Metroidvania Assets/Art/Ansimuz/Warped/spritesheets/player/player-stand.png" id="1_pyqje"]
+[ext_resource type="PackedScene" uid="uid://be34ytjqty47r" path="res://player/player.tscn" id="1_4tel2"]
 [ext_resource type="PackedScene" uid="uid://d120gmulqt8e7" path="res://wall.tscn" id="2_fo2bk"]
 [ext_resource type="PackedScene" uid="uid://calija01ej3ph" path="res://wallshort.tscn" id="4_l6ut1"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_b38a4"]
-atlas = ExtResource("1_pyqje")
-region = Rect2(0, 0, 80, 80)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_p554p"]
-atlas = ExtResource("1_pyqje")
-region = Rect2(80, 0, 80, 80)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_q1tfp"]
-atlas = ExtResource("1_pyqje")
-region = Rect2(160, 0, 80, 80)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_c75w5"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_b38a4")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_p554p")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_q1tfp")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_w7p6l"]
-height = 38.0
 
 [node name="World" type="Node2D"]
 position = Vector2(145, 107)
 
-[node name="Player" type="CharacterBody2D" parent="."]
-collision_layer = 2
-script = ExtResource("1_otayf")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
-position = Vector2(-4, -6)
-sprite_frames = SubResource("SpriteFrames_c75w5")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-shape = SubResource("CapsuleShape2D_w7p6l")
-
-[node name="Muzzle" type="Marker2D" parent="Player"]
-position = Vector2(13, -9)
-
-[node name="Camera2D" type="Camera2D" parent="Player"]
-zoom = Vector2(2, 2)
+[node name="Player" parent="." instance=ExtResource("1_4tel2")]
 
 [node name="Tunel" type="Node" parent="."]
 

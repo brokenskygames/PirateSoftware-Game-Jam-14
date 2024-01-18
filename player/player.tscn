@@ -1,0 +1,75 @@
+[gd_scene load_steps=7 format=3 uid="uid://be34ytjqty47r"]
+
+[ext_resource type="Script" path="res://player/player.gd" id="1_hre51"]
+[ext_resource type="Texture2D" uid="uid://cpbxbxe5t4cba" path="res://assets/PixelArt/Rifle_Body.png" id="2_35x03"]
+[ext_resource type="Texture2D" uid="uid://c7i5j7icwws8t" path="res://assets/PixelArt/Rifle_Hands.png" id="3_hwwdh"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a68dr"]
+height = 48.0
+
+[sub_resource type="Animation" id="Animation_mm6w7"]
+resource_name = "shoot_1"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites/body_1:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [5, 6, 7, 8]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprites/weapon_1:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [5, 6, 7, 8]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j0kal"]
+_data = {
+"shoot_1": SubResource("Animation_mm6w7")
+}
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_hre51")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 4)
+shape = SubResource("CapsuleShape2D_a68dr")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_j0kal")
+}
+
+[node name="Sprites" type="Node2D" parent="."]
+
+[node name="body_1" type="Sprite2D" parent="Sprites"]
+texture = ExtResource("2_35x03")
+hframes = 5
+vframes = 8
+frame = 8
+
+[node name="weapon_1" type="Sprite2D" parent="Sprites"]
+texture = ExtResource("3_hwwdh")
+hframes = 5
+vframes = 8
+frame = 7
+
+[node name="Muzzle" type="Marker2D" parent="Sprites/weapon_1"]
+position = Vector2(19, -4)

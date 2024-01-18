@@ -1,12 +1,17 @@
 extends CharacterBody2D
+@export var drag = 0
 
-
-func start(_position, _direction,speed):
+func start(_position, _direction,speed,drag_factor):
+	drag = drag_factor
 	rotation = _direction
 	position = _position
 	velocity = Vector2(speed, 0).rotated(rotation)
 
 func _physics_process(delta):
+	velocity.x -= velocity.x*drag/2000
+	velocity.y -= velocity.y*drag/2000
+	if abs(velocity.x) < 50 && abs(velocity.y) < 50:
+		self.queue_free()
 	var collision = move_and_collide(velocity * delta)
 	if collision:
 		velocity = velocity.bounce(collision.get_normal())
