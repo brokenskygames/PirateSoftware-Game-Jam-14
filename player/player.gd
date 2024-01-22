@@ -9,6 +9,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 
 func _physics_process(delta):
+	
 	var dir
 	get_input()
 	dir = get_global_mouse_position() - global_position
@@ -19,26 +20,35 @@ func _physics_process(delta):
 	# Handle jump.
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
+		$AnimatedSprite2D.animation = "jump"
+		$AnimatedSprite2D.play()
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction = Input.get_axis("ui_left", "ui_right")
 	if direction:
 		velocity.x = direction * SPEED
+		$AnimatedSprite2D.animation = "run"
+		$AnimatedSprite2D.play()
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
+		$AnimatedSprite2D.stop()	
 	move_and_slide()
+	if velocity.x < 0:
+		$AnimatedSprite2D.flip_h = true
+	else:
+		$AnimatedSprite2D.flip_h = false
+	
+	
 	if dir.length() > 5:
 		$Sprites/weapon_1.rotation = dir.angle()
 		$Sprites/weapon_1/Muzzle.rotation = dir.angle()
 
 	
 func get_input():
-	# Add these actions in Project Settings -> Input Map.
-	if Input.is_action_just_pressed("shoot"):
-		shoot_1()
-	if Input.is_action_just_pressed("alt_shoot"):
-		shoot_2()
+	if Input.is_action_pressed("alt_shoot"):
+		if Input.is_action_just_pressed("shoot"):
+			shoot_1()
 		
 
 func shoot_1():
