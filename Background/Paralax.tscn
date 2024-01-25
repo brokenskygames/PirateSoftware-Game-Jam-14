@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bhr2omi5g10hx" path="res://assets/PixelArt/BG/Untitled - 1_Layer 2.png" id="2_36nbv"]
 [ext_resource type="Texture2D" uid="uid://dtd3p4vbaefk5" path="res://assets/PixelArt/BG/Untitled - 1_Layer 3.png" id="4_aafhr"]
 
-[node name="Node2D" type="Node2D"]
+[node name="Paralax" type="Node2D"]
 position = Vector2(-370, -186)
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]

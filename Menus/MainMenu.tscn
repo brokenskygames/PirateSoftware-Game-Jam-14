@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://bmswinljwfbaq"]
+
+[ext_resource type="Script" path="res://Menus/MainMenu.gd" id="1_il2gj"]
+[ext_resource type="PackedScene" uid="uid://bq06sfwqje5bv" path="res://Background/Paralax.tscn" id="1_lmta6"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_il2gj")
+
+[node name="Node2D" parent="." instance=ExtResource("1_lmta6")]
+
+[node name="Play" type="Button" parent="."]
+offset_left = 403.0
+offset_top = 302.0
+offset_right = 725.0
+offset_bottom = 344.0
+text = "Play"
+
+[node name="Exit" type="Button" parent="."]
+offset_left = 498.0
+offset_top = 355.0
+offset_right = 627.0
+offset_bottom = 387.0
+text = "Exit Game"
+
+[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]
