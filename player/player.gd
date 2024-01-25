@@ -12,7 +12,6 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 
 func _physics_process(delta):
-	$AnimatedSprite2D.animation = "idle"
 	$Sprites/weapon_1.visible = false
 	$Sprites/weapon_2.visible = false
 	var dir
@@ -37,7 +36,7 @@ func _physics_process(delta):
 		$AnimatedSprite2D.play()
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
-		$AnimatedSprite2D.stop()	
+		$AnimatedSprite2D.animation = "idle"	
 	move_and_slide()
 	if velocity.x < -0.1:
 		$AnimatedSprite2D.flip_h = true
