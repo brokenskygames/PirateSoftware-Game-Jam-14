@@ -4,6 +4,7 @@ var Bullet = preload("res://player/bullet.tscn")
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 var stop = false
+var aiming = false
 @export var weapon = 1
 @onready var muzzle_aim = $Sprites/weapon_1/Muzzle_1
 
@@ -35,8 +36,9 @@ func _physics_process(delta):
 		$AnimatedSprite2D.animation = "run"
 		$AnimatedSprite2D.play()
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		$AnimatedSprite2D.animation = "idle"	
+		velocity.x = move_toward(velocity.x, 0, SPEED) 
+		if aiming == false:
+			$AnimatedSprite2D.animation = "idle"	
 	move_and_slide()
 	if velocity.x < -0.1:
 		$AnimatedSprite2D.flip_h = true
@@ -64,7 +66,9 @@ func get_input():
 		
 	if Input.is_action_pressed("alt_shoot"):
 		stop = true
+		aiming = true
 		$AnimatedSprite2D.animation = "aim"
+		$AnimatedSprite2D.play()
 		if weapon == 1:
 			$Sprites/weapon_1.visible = true
 			$Sprites/weapon_2.visible = false
@@ -92,6 +96,7 @@ func get_input():
 			
 	else:
 		stop = false
+		aiming = false
 		
 
 func shoot_1():
