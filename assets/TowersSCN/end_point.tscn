@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://pxd05pc5d5t4"]
+
+[ext_resource type="Texture2D" uid="uid://b0lnojf6rdxq7" path="res://assets/PixelArt/Towers/EndTower/End.png" id="1_r52vy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gqpr2"]
+atlas = ExtResource("1_r52vy")
+region = Rect2(0, 0, 100, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ldn43"]
+atlas = ExtResource("1_r52vy")
+region = Rect2(100, 0, 100, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qakuu"]
+atlas = ExtResource("1_r52vy")
+region = Rect2(200, 0, 100, 300)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jjrn4"]
+animations = [{
+"frames": [{
+"duration": 10.0,
+"texture": SubResource("AtlasTexture_gqpr2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gqpr2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ldn43")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qakuu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gqpr2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="EndPoint" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -150)
+sprite_frames = SubResource("SpriteFrames_jjrn4")
+frame_progress = 0.944424
