@@ -19,14 +19,14 @@ position = Vector2(425, 81)
 rotation = 1.5708
 
 [node name="Wall4" parent="Tunel" instance=ExtResource("2_fo2bk")]
-position = Vector2(-17, 30)
+position = Vector2(-234, 145)
 
 [node name="Wall5" parent="Tunel" instance=ExtResource("4_l6ut1")]
-position = Vector2(324, -34)
+position = Vector2(766, 81)
 rotation = 1.5708
 
 [node name="Wall6" parent="Tunel" instance=ExtResource("2_fo2bk")]
-position = Vector2(324, -34)
+position = Vector2(767, 145)
 
 [node name="Wall3" parent="Tunel" instance=ExtResource("2_fo2bk")]
 position = Vector2(425, 81)

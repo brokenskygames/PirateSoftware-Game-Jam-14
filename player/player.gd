@@ -4,14 +4,17 @@ var Bullet = preload("res://player/bullet.tscn")
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 var stop = false
+@export var weapon = 1
+@onready var muzzle_aim = $Sprites/weapon_1/Muzzle_1
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 
 func _physics_process(delta):
-	
-	$Sprites/weapon_1.hide()
+	$AnimatedSprite2D.animation = "idle"
+	$Sprites/weapon_1.visible = false
+	$Sprites/weapon_2.visible = false
 	var dir
 	get_input()
 	dir = get_global_mouse_position() - global_position
@@ -44,27 +47,49 @@ func _physics_process(delta):
 	
 	if dir.length() > 5:
 		$Sprites/weapon_1.rotation = dir.angle()
-		$Sprites/weapon_1/Muzzle.rotation = dir.angle()
+		$Sprites/weapon_2.rotation = dir.angle()
+		muzzle_aim.rotation = dir.angle()
 
 	
 func get_input():
+	var weapon_aim = $Sprites/weapon_1
+	var muzzle_aim = $Sprites/weapon_1/Muzzle_1
+	
+	if Input.is_action_pressed("change1"):
+		weapon = 1 
+		muzzle_aim = $Sprites/weapon_1/Muzzle_1
+		
+	if Input.is_action_pressed("change2"):
+		weapon = 2
+		muzzle_aim = $Sprites/weapon_2/Muzzle_2
+		
 	if Input.is_action_pressed("alt_shoot"):
 		stop = true
 		$AnimatedSprite2D.animation = "aim"
-		$Sprites/weapon_1.show()
-		var shoot_direction = rad_to_deg($Sprites/weapon_1/Muzzle.rotation)
+		if weapon == 1:
+			$Sprites/weapon_1.visible = true
+			$Sprites/weapon_2.visible = false
+			weapon_aim = $Sprites/weapon_1
+		elif weapon == 2:			
+			$Sprites/weapon_1.visible = false
+			$Sprites/weapon_2.visible = true
+			weapon_aim = $Sprites/weapon_2
+		var shoot_direction = rad_to_deg(muzzle_aim.rotation)
 		if shoot_direction > -90 and shoot_direction < 90:
 			velocity.x = 0
 			$AnimatedSprite2D.flip_h = false
-			$Sprites/weapon_1.flip_h = false
-			$Sprites/weapon_1.flip_v = false
+			weapon_aim.flip_h = false
+			weapon_aim.flip_v = false
 		else: 
 			velocity.x = 0
 			$AnimatedSprite2D.flip_h = true
-			$Sprites/weapon_1.flip_h = false
-			$Sprites/weapon_1.flip_v = true
+			weapon_aim.flip_h = false
+			weapon_aim.flip_v = true
 		if Input.is_action_just_pressed("shoot"):
-			shoot_1()
+			if weapon == 1: 
+				shoot_1()
+			elif weapon == 2: 
+				shoot_2()
 			
 	else:
 		stop = false
@@ -103,7 +128,7 @@ func sonic_wave(bullet_speed,spread_arc,step,wave_weights,bullet_weights):
 	if velocity.y > bullet_speed:
 		bullet_speed = bullet_speed/2+velocity.y
 	var bullet
-	var shoot_direction = $Sprites/weapon_1/Muzzle.rotation
+	var shoot_direction = muzzle_aim.rotation
 	var spread_rand
 	for i in range(0,step):
 		if i == 0:
@@ -111,7 +136,7 @@ func sonic_wave(bullet_speed,spread_arc,step,wave_weights,bullet_weights):
 			for spread in spread_rand:
 				for sub_spread in range(-wave_weights[0],wave_weights[0]):
 					bullet = Bullet.instantiate()
-					bullet.start($Sprites/weapon_1/Muzzle.global_position,
+					bullet.start(muzzle_aim.global_position,
 								 shoot_direction+deg_to_rad(spread+randfn(0,bullet_weights[0])),
 								 bullet_speed+randfn(0,bullet_weights[1]),1)
 					get_tree().root.add_child(bullet)				
@@ -123,7 +148,7 @@ func sonic_wave(bullet_speed,spread_arc,step,wave_weights,bullet_weights):
 			spread_rand.append(spread_arc)
 			for spread in spread_rand:
 				bullet = Bullet.instantiate()
-				bullet.start($Sprites/weapon_1/Muzzle.global_position,
+				bullet.start(muzzle_aim.global_position,
 							 shoot_direction+deg_to_rad(spread+randfn(0,bullet_weights[0])),
 							 bullet_speed+randfn(0,bullet_weights[1])*i/10,
 							 i*bullet_weights[2])
