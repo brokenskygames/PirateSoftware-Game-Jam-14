@@ -3,6 +3,7 @@ var Bullet = preload("res://player/bullet.tscn")
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
+var stop = false
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -10,6 +11,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _physics_process(delta):
 	
+	$Sprites/weapon_1.hide()
 	var dir
 	get_input()
 	dir = get_global_mouse_position() - global_position
@@ -26,7 +28,7 @@ func _physics_process(delta):
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction = Input.get_axis("ui_left", "ui_right")
-	if direction:
+	if direction and !stop:
 		velocity.x = direction * SPEED
 		$AnimatedSprite2D.animation = "run"
 		$AnimatedSprite2D.play()
@@ -34,9 +36,9 @@ func _physics_process(delta):
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		$AnimatedSprite2D.stop()	
 	move_and_slide()
-	if velocity.x < 0:
+	if velocity.x < -0.1:
 		$AnimatedSprite2D.flip_h = true
-	else:
+	elif velocity.x > 0.1:
 		$AnimatedSprite2D.flip_h = false
 	
 	
@@ -47,8 +49,25 @@ func _physics_process(delta):
 	
 func get_input():
 	if Input.is_action_pressed("alt_shoot"):
+		stop = true
+		$AnimatedSprite2D.animation = "aim"
+		$Sprites/weapon_1.show()
+		var shoot_direction = rad_to_deg($Sprites/weapon_1/Muzzle.rotation)
+		if shoot_direction > -90 and shoot_direction < 90:
+			velocity.x = 0
+			$AnimatedSprite2D.flip_h = false
+			$Sprites/weapon_1.flip_h = false
+			$Sprites/weapon_1.flip_v = false
+		else: 
+			velocity.x = 0
+			$AnimatedSprite2D.flip_h = true
+			$Sprites/weapon_1.flip_h = false
+			$Sprites/weapon_1.flip_v = true
 		if Input.is_action_just_pressed("shoot"):
 			shoot_1()
+			
+	else:
+		stop = false
 		
 
 func shoot_1():

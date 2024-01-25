@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://be34ytjqty47r"]
+[gd_scene load_steps=27 format=3 uid="uid://be34ytjqty47r"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_hre51"]
 [ext_resource type="Texture2D" uid="uid://v5qrob1awpxy" path="res://assets/PixelArt/Player.png" id="1_xsbr3"]
@@ -7,6 +7,22 @@
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a68dr"]
 height = 48.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oklml"]
+atlas = ExtResource("2_35x03")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q2l0g"]
+atlas = ExtResource("2_35x03")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tqmuy"]
+atlas = ExtResource("2_35x03")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_50nw7"]
+atlas = ExtResource("2_35x03")
+region = Rect2(192, 64, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g23p8"]
 atlas = ExtResource("1_xsbr3")
@@ -64,6 +80,23 @@ region = Rect2(256, 192, 64, 64)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_oklml")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q2l0g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tqmuy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_50nw7")
+}],
+"loop": true,
+"name": &"aim",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_g23p8")
 }, {
 "duration": 1.0,
@@ -119,49 +152,46 @@ animations = [{
 
 [sub_resource type="Animation" id="Animation_mm6w7"]
 resource_name = "shoot_1"
-length = 2.0
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprites/body_1:frame")
+tracks/0/path = NodePath("Sprites/weapon_1:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1, 1.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [5, 6, 7, 8]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprites/weapon_1:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5, 1, 1.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [5, 6, 7, 8]
+"values": [7, 8, 7]
 }
 
-[sub_resource type="Animation" id="Animation_gsb8q"]
-resource_name = "idle"
+[sub_resource type="Animation" id="Animation_pif72"]
+resource_name = "aim_1"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites/weapon_1:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [5, 6, 7]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_j0kal"]
 _data = {
-"idle": SubResource("Animation_gsb8q"),
+"aim_1": SubResource("Animation_pif72"),
 "shoot_1": SubResource("Animation_mm6w7")
 }
-
-[sub_resource type="AnimationRootNode" id="AnimationRootNode_8yb2s"]
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
 script = ExtResource("1_hre51")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(0, 4)
 shape = SubResource("CapsuleShape2D_a68dr")
 
@@ -170,8 +200,8 @@ zoom = Vector2(2, 2)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_58gvy")
-animation = &"run"
-frame_progress = 0.0722765
+animation = &"aim"
+frame_progress = 0.0553488
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -188,18 +218,10 @@ vframes = 8
 frame = 5
 
 [node name="weapon_1" type="Sprite2D" parent="Sprites"]
-visible = false
 texture = ExtResource("3_hwwdh")
 hframes = 5
 vframes = 8
-frame = 5
+frame = 7
 
 [node name="Muzzle" type="Marker2D" parent="Sprites/weapon_1"]
 position = Vector2(19, -4)
-
-[node name="AnimationTree" type="AnimationTree" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_j0kal")
-}
-tree_root = SubResource("AnimationRootNode_8yb2s")
-anim_player = NodePath("../AnimationPlayer")
