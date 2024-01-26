@@ -101,6 +101,8 @@ func get_input():
 
 func shoot_1():
 	var bullet_speed = 200 
+	#var spread_arc = 20
+	#var step = 30	
 	var spread_arc = 20
 	var step = 30	
 	var wave_weights = [1,2]
@@ -142,7 +144,7 @@ func sonic_wave(bullet_speed,spread_arc,step,wave_weights,bullet_weights):
 					bullet = Bullet.instantiate()
 					bullet.start(muzzle_aim.global_position,
 								 shoot_direction+deg_to_rad(spread+randfn(0,bullet_weights[0])),
-								 bullet_speed+randfn(0,bullet_weights[1]),1)
+								 bullet_speed+randfn(0,bullet_weights[1]),1,"player")
 					get_tree().root.add_child(bullet)				
 			
 		else:
@@ -155,6 +157,6 @@ func sonic_wave(bullet_speed,spread_arc,step,wave_weights,bullet_weights):
 				bullet.start(muzzle_aim.global_position,
 							 shoot_direction+deg_to_rad(spread+randfn(0,bullet_weights[0])),
 							 bullet_speed+randfn(0,bullet_weights[1])*i/10,
-							 i*bullet_weights[2])
+							 i*bullet_weights[2],"player")
 				get_tree().root.add_child(bullet)
 
