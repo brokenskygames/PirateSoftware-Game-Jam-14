@@ -11,6 +11,8 @@ func _process(delta):
 
 func _shotgun():
 	$Shotgun.visible = true
+	$Sniper.visible = false
 	
 func _sniper():
 	$Sniper.visible = true
+	$Shotgun.visible = false
