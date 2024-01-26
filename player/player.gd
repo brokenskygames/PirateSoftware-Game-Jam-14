@@ -103,21 +103,23 @@ func shoot_1():
 	var bullet_speed = 200 
 	#var spread_arc = 20
 	#var step = 30	
-	var spread_arc = 20
-	var step = 30	
+	var spread_arc = 25
+	var step = 15
 	var wave_weights = [1,2]
-	var bullet_weights = [3,1,3]	
-	sonic_wave(bullet_speed,spread_arc,step,wave_weights,bullet_weights)
+	var bullet_weights = [3,5,8]	
+	var source = "shoot_1"
+	sonic_wave(bullet_speed,spread_arc,step,wave_weights,bullet_weights,source)
 	
 func shoot_2():
 	var bullet_speed = 400 
 	var spread_arc = 6
-	var step = 40	
+	var step = 30	
 	var wave_weights = [2,4]
 	var bullet_weights = [1,2,2]	
-	sonic_wave(bullet_speed,spread_arc,step,wave_weights,bullet_weights)
+	var source = "shoot_1"
+	sonic_wave(bullet_speed,spread_arc,step,wave_weights,bullet_weights,source)
 	
-func sonic_wave(bullet_speed,spread_arc,step,wave_weights,bullet_weights):
+func sonic_wave(bullet_speed,spread_arc,step,wave_weights,bullet_weights,source):
 	#=========================================
 	# bullet_speed -> how fast is the base speed of the bullets
 	# spread_arc -> how wide is the wave in degrees, the wave is double the spread_arc
@@ -144,7 +146,7 @@ func sonic_wave(bullet_speed,spread_arc,step,wave_weights,bullet_weights):
 					bullet = Bullet.instantiate()
 					bullet.start(muzzle_aim.global_position,
 								 shoot_direction+deg_to_rad(spread+randfn(0,bullet_weights[0])),
-								 bullet_speed+randfn(0,bullet_weights[1]),1,"player")
+								 bullet_speed+randfn(0,bullet_weights[1]/4),1,source)
 					get_tree().root.add_child(bullet)				
 			
 		else:
@@ -156,7 +158,7 @@ func sonic_wave(bullet_speed,spread_arc,step,wave_weights,bullet_weights):
 				bullet = Bullet.instantiate()
 				bullet.start(muzzle_aim.global_position,
 							 shoot_direction+deg_to_rad(spread+randfn(0,bullet_weights[0])),
-							 bullet_speed+randfn(0,bullet_weights[1])*i/10,
-							 i*bullet_weights[2],"player")
+							 bullet_speed-randfn(1,bullet_weights[1])*(i)/10,
+							 i*bullet_weights[2]-abs(randfn(0,bullet_weights[1])),source)
 				get_tree().root.add_child(bullet)
 

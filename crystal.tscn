@@ -80,7 +80,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7fqif"]
-radius = 25.02
+radius = 13.0384
 
 [node name="crystal" type="Area2D"]
 collision_layer = 8
@@ -88,19 +88,20 @@ collision_mask = 4
 script = ExtResource("1_heiv8")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_pnlo2")
 animation = &"hit"
 frame_progress = 0.0572361
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, -13)
+position = Vector2(1, -7)
 shape = SubResource("CircleShape2D_7fqif")
 
 [node name="cooldown" type="Timer" parent="."]
 wait_time = 4.0
 
 [node name="Muzzle" type="Marker2D" parent="."]
-position = Vector2(2, -12)
+position = Vector2(1, -7)
 rotation = 1.5708
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

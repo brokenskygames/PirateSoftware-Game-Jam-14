@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://2t0iijd1pyfn"]
+[gd_scene load_steps=22 format=3 uid="uid://2t0iijd1pyfn"]
 
 [ext_resource type="Texture2D" uid="uid://y0aaoq1ihml2" path="res://assets/PixelArt/Drone1.png" id="1_26fuw"]
 [ext_resource type="Script" path="res://player/mob.gd" id="1_p7p2b"]
@@ -108,7 +108,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_80csy")
 }],
-"loop": false,
+"loop": true,
 "name": &"died",
 "speed": 5.0
 }, {
@@ -134,14 +134,11 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f68q7"]
-radius = 3.0
-height = 50.0
+radius = 21.0
+height = 68.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_n1hrq"]
 radius = 225.002
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nxl7i"]
-height = 52.0
 
 [node name="mob" type="CharacterBody2D"]
 script = ExtResource("1_p7p2b")
@@ -149,9 +146,10 @@ script = ExtResource("1_p7p2b")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_qacw2")
 animation = &"idle"
+frame_progress = 0.305694
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-3, 10)
+position = Vector2(-3, 6)
 shape = SubResource("CapsuleShape2D_f68q7")
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -163,14 +161,5 @@ visible = false
 self_modulate = Color(1, 1, 1, 0.317647)
 shape = SubResource("CircleShape2D_n1hrq")
 
-[node name="get_hit" type="Area2D" parent="."]
-collision_layer = 32
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="get_hit"]
-position = Vector2(-3, 0)
-shape = SubResource("CapsuleShape2D_nxl7i")
-
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
-[connection signal="body_entered" from="get_hit" to="." method="_on_get_hit_body_entered"]

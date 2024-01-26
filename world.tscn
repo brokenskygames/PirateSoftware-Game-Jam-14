@@ -725,7 +725,7 @@ layer_0/tile_data = PackedInt32Array(131053, 393216, 8, 196589, 393216, 9, 13105
 [node name="Node2D" parent="." instance=ExtResource("3_1pnbr")]
 
 [node name="crystal" parent="." instance=ExtResource("4_ftabr")]
-position = Vector2(480, -114)
+position = Vector2(476, -137)
 rotation = 3.14159
 
 [node name="mob" parent="." instance=ExtResource("5_6yijd")]

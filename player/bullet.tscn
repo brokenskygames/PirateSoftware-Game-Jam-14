@@ -26,7 +26,7 @@ scale = Vector2(1.1, 1.1)
 rect = Rect2(-3, -3, 6, 6)
 
 [node name="life" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 2.0
 autostart = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

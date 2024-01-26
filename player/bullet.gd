@@ -6,14 +6,22 @@ var max_speed
 var hit_source
 func start(_position, _direction,speed,drag_factor,source):
 	
+	
 	drag = drag_factor
 	hit_source = source
 	modulate = Color("C7C093")
 	rotation = _direction
 	if source == "crystal":
 		position = _position + 0.05*_position.rotated(rotation)
+		$life.wait_time = 2
+	elif source == "shoot_1": 
+		position = _position
+		$life.wait_time = 1.5
 	else: 
 		position = _position
+		$life.wait_time = 3
+	
+
 	max_speed = speed
 	velocity = Vector2(speed, 0).rotated(rotation)
 	

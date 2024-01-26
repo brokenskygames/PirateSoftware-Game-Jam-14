@@ -159,7 +159,7 @@ position = Vector2(0, 4)
 shape = SubResource("CapsuleShape2D_a68dr")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2, 2)
+zoom = Vector2(1.5, 1.5)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_58gvy")
