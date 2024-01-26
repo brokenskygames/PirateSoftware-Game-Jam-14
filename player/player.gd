@@ -7,6 +7,8 @@ var stop = false
 var aiming = false
 @export var weapon = 1
 @onready var muzzle_aim = $Sprites/weapon_1/Muzzle_1
+var player_health = 100
+var player_hit = false
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -31,6 +33,11 @@ func _physics_process(delta):
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction = Input.get_axis("ui_left", "ui_right")
+	if player_hit == true:
+		print("hittttt")
+		velocity.x == 800
+		velocity.y == -800
+		
 	if direction and !stop:
 		velocity.x = direction * SPEED
 		$AnimatedSprite2D.animation = "run"
@@ -147,11 +154,11 @@ func sonic_wave(bullet_speed,spread_arc,step,wave_weights,bullet_weights,source)
 					bullet.start(muzzle_aim.global_position,
 								 shoot_direction+deg_to_rad(spread+randfn(0,bullet_weights[0])),
 								 bullet_speed+randfn(0,bullet_weights[1]/4),1,source)
-					get_tree().root.add_child(bullet)				
+					get_tree().root.add_child(bullet)
 			
 		else:
 			spread_rand= range(-spread_arc,spread_arc,int(i/wave_weights[1])+1)
-			if len(spread_rand) == 1: 
+			if len(spread_rand) == 1:
 				spread_rand.append(0)
 			spread_rand.append(spread_arc)
 			for spread in spread_rand:
@@ -162,3 +169,13 @@ func sonic_wave(bullet_speed,spread_arc,step,wave_weights,bullet_weights,source)
 							 i*bullet_weights[2]-abs(randfn(0,bullet_weights[1])),source)
 				get_tree().root.add_child(bullet)
 
+
+
+func _on_area_2d_body_entered(body):
+	player_hit = true
+	player_health -= 30
+	if player_health <= 0:
+		get_tree().change_scene_to_file("res://Menus/MainMenu.tscn")
+	
+	
+	

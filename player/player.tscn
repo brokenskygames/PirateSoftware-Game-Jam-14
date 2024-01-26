@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://be34ytjqty47r"]
+[gd_scene load_steps=25 format=3 uid="uid://be34ytjqty47r"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_hre51"]
 [ext_resource type="Texture2D" uid="uid://v5qrob1awpxy" path="res://assets/PixelArt/Player.png" id="1_xsbr3"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c7i5j7icwws8t" path="res://assets/PixelArt/Rifle_Hands.png" id="3_hwwdh"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a68dr"]
+radius = 7.0
 height = 48.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oklml"]
@@ -150,6 +151,10 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1byt8"]
+radius = 11.0
+height = 48.0
+
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
 script = ExtResource("1_hre51")
@@ -186,3 +191,13 @@ frame = 12
 
 [node name="Muzzle_2" type="Marker2D" parent="Sprites/weapon_2"]
 position = Vector2(24, -4)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 4)
+shape = SubResource("CapsuleShape2D_1byt8")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

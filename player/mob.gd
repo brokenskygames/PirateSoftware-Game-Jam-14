@@ -63,11 +63,9 @@ func _on_area_2d_body_exited(body):
 		enemy_position_x = -1 
 
 
-
 func _on_get_hit_body_entered(body):
 	body.queue_free()
 	health -= 1
-	print(health)
 	if health <= 0:
 		$AnimatedSprite2D.play("died")
 		await $AnimatedSprite2D.animation_finished

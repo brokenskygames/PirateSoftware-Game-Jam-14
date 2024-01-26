@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://cqagcee476eum"]
+
+[ext_resource type="Texture2D" uid="uid://b0lnojf6rdxq7" path="res://assets/PixelArt/Towers/EndTower/End.png" id="1_6oiy5"]
+[ext_resource type="Script" path="res://end_tower.gd" id="1_qhgl6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jj27w"]
+atlas = ExtResource("1_6oiy5")
+region = Rect2(0, 0, 100, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i7au4"]
+atlas = ExtResource("1_6oiy5")
+region = Rect2(100, 0, 100, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wqeaw"]
+atlas = ExtResource("1_6oiy5")
+region = Rect2(200, 0, 100, 300)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sovkn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jj27w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i7au4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wqeaw")
+}],
+"loop": true,
+"name": &"static",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dhhyb"]
+radius = 41.0
+height = 268.0
+
+[node name="Node2D" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_qhgl6")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_sovkn")
+animation = &"static"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 13)
+shape = SubResource("CapsuleShape2D_dhhyb")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
