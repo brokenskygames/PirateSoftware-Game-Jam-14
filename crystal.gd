@@ -14,7 +14,6 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _on_body_entered(body):
-	print(body)
 	body.name.contains("bullet")
 	body.queue_free()
 	if hit_cooldown == false:

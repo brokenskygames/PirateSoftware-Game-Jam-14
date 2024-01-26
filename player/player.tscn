@@ -200,4 +200,8 @@ collision_mask = 64
 position = Vector2(0, 4)
 shape = SubResource("CapsuleShape2D_1byt8")
 
+[node name="knockback" type="Timer" parent="."]
+wait_time = 0.3
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="knockback" to="." method="_on_knockback_timeout"]

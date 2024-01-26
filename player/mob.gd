@@ -1,11 +1,11 @@
 extends CharacterBody2D
 
 var movement_range = 120
-var center_position = position
+var center_position
 var enemy_detect = false
 var enemy_position_x = 1
 var enemy_jump = false
-var health = 500
+var health = 300
 
 
 const SPEED = 300.0
@@ -15,6 +15,7 @@ const JUMP_VELOCITY = -400
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _ready():
+	center_position = position
 	velocity.x = 10
 	$AnimatedSprite2D.play("idle")
 
@@ -30,8 +31,7 @@ func _physics_process(delta):
 			velocity.x += 1
 		else:
 			velocity.x -= 1
-	else:
-		
+	else:		
 		center_position.x = position.x
 		velocity.x = enemy_position_x*80
 		if $AnimatedSprite2D.animation != "died":

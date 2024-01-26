@@ -7,8 +7,9 @@ var stop = false
 var aiming = false
 @export var weapon = 1
 @onready var muzzle_aim = $Sprites/weapon_1/Muzzle_1
-var player_health = 100
+var player_health = 200
 var player_hit = false
+var hit_direction = 1
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -34,18 +35,17 @@ func _physics_process(delta):
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction = Input.get_axis("ui_left", "ui_right")
 	if player_hit == true:
-		print("hittttt")
-		velocity.x == 800
-		velocity.y == -800
-		
-	if direction and !stop:
-		velocity.x = direction * SPEED
-		$AnimatedSprite2D.animation = "run"
-		$AnimatedSprite2D.play()
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED) 
-		if aiming == false:
-			$AnimatedSprite2D.animation = "idle"	
+		velocity.x = 400*hit_direction
+		velocity.y = -100
+	else:		
+		if direction and !stop:
+			velocity.x = direction * SPEED
+			$AnimatedSprite2D.animation = "run"
+			$AnimatedSprite2D.play()
+		else:
+			velocity.x = move_toward(velocity.x, 0, SPEED) 
+			if aiming == false:
+				$AnimatedSprite2D.animation = "idle"	
 	move_and_slide()
 	if velocity.x < -0.1:
 		$AnimatedSprite2D.flip_h = true
@@ -174,8 +174,17 @@ func sonic_wave(bullet_speed,spread_arc,step,wave_weights,bullet_weights,source)
 func _on_area_2d_body_entered(body):
 	player_hit = true
 	player_health -= 30
+	if body.position.x > position.x:
+		hit_direction = -1
+	else:
+		hit_direction = 1 
+	$knockback.start()
 	if player_health <= 0:
 		get_tree().change_scene_to_file("res://Menus/MainMenu.tscn")
 	
 	
 	
+
+
+func _on_knockback_timeout():
+	player_hit = false
