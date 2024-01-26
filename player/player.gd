@@ -2,12 +2,13 @@ extends CharacterBody2D
 var Bullet = preload("res://player/bullet.tscn")
 
 const SPEED = 300.0
-const JUMP_VELOCITY = -400.0
+const JUMP_VELOCITY = -450.0
 var stop = false
 var aiming = false
 @export var weapon = 1
 @onready var muzzle_aim = $Sprites/weapon_1/Muzzle_1
-var player_health = 200
+
+var player_health = 4
 var player_hit = false
 var hit_direction = 1
 
@@ -16,6 +17,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 
 func _physics_process(delta):
+	
 	$Sprites/weapon_1.visible = false
 	$Sprites/weapon_2.visible = false
 	var dir
@@ -66,10 +68,14 @@ func get_input():
 	if Input.is_action_pressed("change1"):
 		weapon = 1 
 		muzzle_aim = $Sprites/weapon_1/Muzzle_1
+		$PlayerUI2/Shotgun.visible = true
+		$PlayerUI2/Sniper.visible = false
 		
 	if Input.is_action_pressed("change2"):
 		weapon = 2
 		muzzle_aim = $Sprites/weapon_2/Muzzle_2
+		$PlayerUI2/Shotgun.visible = false
+		$PlayerUI2/Sniper.visible = true
 		
 	if Input.is_action_pressed("alt_shoot"):
 		stop = true
@@ -173,18 +179,36 @@ func sonic_wave(bullet_speed,spread_arc,step,wave_weights,bullet_weights,source)
 
 func _on_area_2d_body_entered(body):
 	player_hit = true
-	player_health -= 30
+	player_health -= 1
 	if body.position.x > position.x:
 		hit_direction = -1
 	else:
 		hit_direction = 1 
 	$knockback.start()
-	if player_health <= 0:
+	if player_health == 4:		
+		$PlayerUI2/OneHealth.visible = false
+		$PlayerUI2/TwoHealth.visible = false
+		$PlayerUI2/ThreeHealth.visible = false		
+		$PlayerUI2/FourHealth.visible = true
+	elif player_health == 3:		
+		$PlayerUI2/OneHealth.visible = false
+		$PlayerUI2/TwoHealth.visible = false
+		$PlayerUI2/ThreeHealth.visible = true		
+		$PlayerUI2/FourHealth.visible = false
+	elif player_health == 2:		
+		$PlayerUI2/OneHealth.visible = false
+		$PlayerUI2/TwoHealth.visible = true
+		$PlayerUI2/ThreeHealth.visible = false		
+		$PlayerUI2/FourHealth.visible = false
+	elif player_health == 1:		
+		$PlayerUI2/OneHealth.visible = true
+		$PlayerUI2/TwoHealth.visible = false
+		$PlayerUI2/ThreeHealth.visible = false		
+		$PlayerUI2/FourHealth.visible = false
+	else:
 		get_tree().change_scene_to_file("res://Menus/MainMenu.tscn")
 	
 	
-	
-
 
 func _on_knockback_timeout():
 	player_hit = false

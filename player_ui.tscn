@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c4m10f45r1rg8"]
+[gd_scene load_steps=9 format=3 uid="uid://cir037w44rqs"]
 
 [ext_resource type="Script" path="res://player_ui.gd" id="1_6ha66"]
 [ext_resource type="Texture2D" uid="uid://dtn4dgw2l2qje" path="res://assets/PixelArt/UI/Baseplate.png" id="2_akn4k"]
@@ -21,6 +21,7 @@ position = Vector2(959, 543)
 texture = ExtResource("3_u4r20")
 
 [node name="Sniper" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(958, 541)
 texture = ExtResource("4_8e48a")
 

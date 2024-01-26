@@ -1,7 +1,7 @@
 extends Area2D
 var Bullet = preload("res://player/bullet.tscn")
 var hit_cooldown = false
-@onready var muzzle_aim = $Muzzle
+@onready var muzzle_aim = $Line2D
 
 
 
@@ -49,7 +49,7 @@ func sonic_wave(bullet_speed,spread_arc,step,wave_weights,bullet_weights):
 	# 		2 -> how much drag the bullets have	
 
 	var bullet
-	var shoot_direction = muzzle_aim.rotation
+	var shoot_direction = rotation - deg_to_rad(90)
 	var spread_rand
 	for i in range(0,step):		
 		spread_rand= range(-spread_arc,spread_arc,int(i/wave_weights[1])+1)

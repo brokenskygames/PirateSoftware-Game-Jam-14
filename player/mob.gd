@@ -1,11 +1,11 @@
 extends CharacterBody2D
 
-var movement_range = 120
+var movement_range = 40
 var center_position
 var enemy_detect = false
 var enemy_position_x = 1
 var enemy_jump = false
-var health = 300
+var health = 250
 
 
 const SPEED = 300.0
@@ -33,14 +33,17 @@ func _physics_process(delta):
 			velocity.x -= 1
 	else:		
 		center_position.x = position.x
-		velocity.x = enemy_position_x*80
+		
 		if $AnimatedSprite2D.animation != "died":
 			$AnimatedSprite2D.play("atack")
+			velocity.x = enemy_position_x*80
+		else: 
+			velocity.x = 0
 		
 		
-	if velocity.x < 0:
+	if velocity.x < -0.1:
 		$AnimatedSprite2D.flip_h = true
-	else:
+	elif velocity.x > 0.1:
 		$AnimatedSprite2D.flip_h = false
 	position += velocity * delta
 	move_and_slide()
@@ -67,6 +70,7 @@ func _on_get_hit_body_entered(body):
 	body.queue_free()
 	health -= 1
 	if health <= 0:
+		velocity.x = 0
 		$AnimatedSprite2D.play("died")
 		await $AnimatedSprite2D.animation_finished
 		self.queue_free()

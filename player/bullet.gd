@@ -12,7 +12,7 @@ func start(_position, _direction,speed,drag_factor,source):
 	modulate = Color("C7C093")
 	rotation = _direction
 	if source == "crystal":
-		position = _position + 0.05*_position.rotated(rotation)
+		position = _position + 0.03*_position.rotated(rotation)
 		$life.wait_time = 2
 	elif source == "shoot_1": 
 		position = _position

@@ -25,7 +25,8 @@ text = "How To Play
 - Left Click to shoot
 - 1 For Shotgun
 - 2 For Sniper
-- WASD Movement"
+- WASD Movement
+- Space jump"
 
 [node name="Play" type="Button" parent="."]
 offset_left = 153.0
@@ -47,8 +48,8 @@ theme = ExtResource("3_20itg")
 text = "Exit Game"
 
 [node name="MenuPad" type="Sprite2D" parent="."]
-position = Vector2(912, 633)
-scale = Vector2(2.75333, 2.91333)
+position = Vector2(861, 514)
+scale = Vector2(2.41333, 2.12)
 texture = ExtResource("4_3jo15")
 
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
