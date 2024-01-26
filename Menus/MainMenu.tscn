@@ -1,28 +1,55 @@
-[gd_scene load_steps=3 format=3 uid="uid://bmswinljwfbaq"]
+[gd_scene load_steps=5 format=3 uid="uid://bmswinljwfbaq"]
 
 [ext_resource type="Script" path="res://Menus/MainMenu.gd" id="1_il2gj"]
 [ext_resource type="PackedScene" uid="uid://bq06sfwqje5bv" path="res://Background/Paralax.tscn" id="1_lmta6"]
+[ext_resource type="Theme" uid="uid://bcw25hoxqf0a7" path="res://assets/UIResources/ButtonTheme.tres" id="3_20itg"]
+[ext_resource type="Texture2D" uid="uid://dpt306x38stri" path="res://assets/PixelArt/UI/Menu Pad.png" id="4_3jo15"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_il2gj")
 
 [node name="Node2D" parent="." instance=ExtResource("1_lmta6")]
+position = Vector2(-410, -181)
+
+[node name="Label" type="Label" parent="Node2D"]
+z_index = 1
+offset_left = 981.0
+offset_top = 484.0
+offset_right = 1436.0
+offset_bottom = 887.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 40
+text = "How To Play
+
+- Right Click Hold to aim
+- Left Click to shoot
+- 1 For Shotgun
+- 2 For Sniper
+- WASD Movement"
 
 [node name="Play" type="Button" parent="."]
-offset_left = 797.0
-offset_top = 297.0
-offset_right = 1119.0
-offset_bottom = 339.0
+offset_left = 153.0
+offset_top = 203.0
+offset_right = 475.0
+offset_bottom = 303.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme = ExtResource("3_20itg")
+theme_override_font_sizes/font_size = 50
 text = "Play"
 
 [node name="Exit" type="Button" parent="."]
-offset_left = 897.0
-offset_top = 352.0
-offset_right = 1026.0
-offset_bottom = 384.0
+offset_left = 154.0
+offset_top = 310.0
+offset_right = 476.0
+offset_bottom = 382.0
+theme = ExtResource("3_20itg")
 text = "Exit Game"
+
+[node name="MenuPad" type="Sprite2D" parent="."]
+position = Vector2(912, 633)
+scale = Vector2(2.75333, 2.91333)
+texture = ExtResource("4_3jo15")
 
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]
