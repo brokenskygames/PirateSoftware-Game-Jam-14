@@ -23,7 +23,7 @@ func _on_body_entered(body):
 		$cooldown.start()
 		var bullet_speed = 150 
 		var spread_arc = 90
-		var step = 8	
+		var step = 6	
 		var wave_weights = [1,2]
 		var bullet_weights = [4,10,15]	
 		sonic_wave(bullet_speed,spread_arc,step,wave_weights,bullet_weights)
@@ -52,7 +52,7 @@ func sonic_wave(bullet_speed,spread_arc,step,wave_weights,bullet_weights):
 	var shoot_direction = rotation - deg_to_rad(90)
 	var spread_rand
 	for i in range(0,step):		
-		spread_rand= range(-spread_arc,spread_arc,int(i/wave_weights[1])+1)
+		spread_rand= range(-spread_arc,spread_arc,int(i/wave_weights[1])+2)
 		if len(spread_rand) == 1: 
 			spread_rand.append(0)
 		spread_rand.append(spread_arc)

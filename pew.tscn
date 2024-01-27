@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=3 uid="uid://dv7j6javthy7b"]
+
+[ext_resource type="Texture2D" uid="uid://ukqqragck1lh" path="res://assets/pew.png" id="1_cutnb"]
+[ext_resource type="Script" path="res://pew.gd" id="1_e3moi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hbvl6"]
+atlas = ExtResource("1_cutnb")
+region = Rect2(0, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rv0yq"]
+atlas = ExtResource("1_cutnb")
+region = Rect2(20, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j0862"]
+atlas = ExtResource("1_cutnb")
+region = Rect2(40, 0, 20, 20)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_w3c63"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hbvl6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rv0yq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j0862")
+}],
+"loop": true,
+"name": &"pew",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pklst"]
+radius = 6.0
+
+[node name="pew" type="CharacterBody2D"]
+collision_layer = 512
+collision_mask = 3
+script = ExtResource("1_e3moi")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_w3c63")
+animation = &"pew"
+frame_progress = 0.888859
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 0)
+shape = SubResource("CircleShape2D_pklst")
+
+[node name="life" type="Timer" parent="."]
+wait_time = 6.0
