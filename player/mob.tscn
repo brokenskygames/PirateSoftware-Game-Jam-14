@@ -138,7 +138,7 @@ radius = 3.0
 height = 50.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_n1hrq"]
-radius = 225.002
+radius = 164.027
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nxl7i"]
 height = 52.0
@@ -157,11 +157,11 @@ position = Vector2(-3, 10)
 shape = SubResource("CapsuleShape2D_f68q7")
 
 [node name="Area2D" type="Area2D" parent="."]
+visible = false
 collision_layer = 16
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-visible = false
 self_modulate = Color(1, 1, 1, 0.317647)
 shape = SubResource("CircleShape2D_n1hrq")
 

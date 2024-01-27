@@ -126,7 +126,7 @@ func shoot_1():
 func shoot_2():
 	var bullet_speed = 400 
 	var spread_arc = 6
-	var step = 30	
+	var step = 25	
 	var wave_weights = [2,4]
 	var bullet_weights = [1,2,2]	
 	var source = "shoot_1"

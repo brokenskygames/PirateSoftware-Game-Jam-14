@@ -22,9 +22,9 @@ func _on_body_entered(body):
 		hit_cooldown = true
 		$cooldown.start()
 		var bullet_speed = 150 
-		var spread_arc = 110
-		var step = 7	
-		var wave_weights = [1,1]
+		var spread_arc = 90
+		var step = 8	
+		var wave_weights = [1,2]
 		var bullet_weights = [4,10,15]	
 		sonic_wave(bullet_speed,spread_arc,step,wave_weights,bullet_weights)
 

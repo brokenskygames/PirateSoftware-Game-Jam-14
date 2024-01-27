@@ -5,7 +5,7 @@ var center_position
 var enemy_detect = false
 var enemy_position_x = 1
 var enemy_jump = false
-var health = 250
+var health = 180
 
 
 const SPEED = 300.0
@@ -23,7 +23,7 @@ func _physics_process(delta):
 	var floating
 	# Add the gravity.
 	if not is_on_floor():
-		velocity.y += gravity*0.5 * delta
+		velocity.y += gravity*0.3 * delta
 
 	# Handle jump.
 	if !enemy_detect:
